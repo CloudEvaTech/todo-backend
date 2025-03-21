@@ -1,6 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class Item(BaseModel):
-    id: int 
-    name: str
-    description: str | None = None
+    id: str
+    text: str
+    desc: str | None = None
+    completed: bool = Field(default = False, validate_default=True)
