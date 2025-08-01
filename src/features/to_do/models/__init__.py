@@ -1,4 +1,3 @@
-from .tasks import ToDoItem, Status
-
+from .tasks import Status, ToDoItem
 
 __alll__ = ["ToDoItem", "Status"]

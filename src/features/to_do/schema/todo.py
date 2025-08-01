@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
+
 
 class StatusCreate(BaseModel):
     completed: bool = False
@@ -7,6 +9,7 @@ class StatusCreate(BaseModel):
 
     class Config:
         orm_mode = True
+
 
 class ToDoCreate(BaseModel):
     title: str
@@ -16,9 +19,10 @@ class ToDoCreate(BaseModel):
         json_schema_extra = {
             "example": {
                 "title": "Build AI model",
-                "description": "Develop a machine learning model for predicting stock prices"
+                "description": "Develop a machine learning model for predicting stock prices",
             }
         }
+
 
 class StatusResponseSchema(BaseModel):
     id: str
@@ -27,6 +31,7 @@ class StatusResponseSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
 
 class ToDoResponseSchema(BaseModel):
     id: str
@@ -38,13 +43,10 @@ class ToDoResponseSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
 class DeleteResponseSchema(BaseModel):
     message: str
 
     class Config:
         orm_mode = True
-        json_schema_extra = {
-            "example": {
-                "message": "Task deleted successfully"
-            }
-        }
+        json_schema_extra = {"example": {"message": "Task deleted successfully"}}

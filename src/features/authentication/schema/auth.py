@@ -1,7 +1,8 @@
-from pydantic import field_validator,BaseModel, EmailStr
-from pydantic.types import StringConstraints
 import re
 from typing import Annotated
+
+from pydantic import BaseModel, EmailStr, field_validator
+from pydantic.types import StringConstraints
 
 
 class PasswordValidationMixin:
@@ -34,25 +35,23 @@ class SignupRequest(PasswordValidationMixin, BaseModel):
     password: Annotated[str, StringConstraints(strip_whitespace=True, min_length=8)]
     username: str
 
-
     class Config:
         json_schema_extra = {
             "example": {
                 "email": "john.doc@gmail.com",
                 "username": "john_doe",
-                "password": "Secret@123"
+                "password": "Secret@123",
             }
         }
+
+
 class SignRequest(PasswordValidationMixin, BaseModel):
     email: Annotated[EmailStr, StringConstraints(strip_whitespace=True, to_lower=True)]
     password: Annotated[str, StringConstraints(strip_whitespace=True, min_length=8)]
 
     class Config:
         json_schema_extra = {
-            "example": {
-                "email": "john.doc@gmail.com",
-                "password": "Secret@123"
-            }
+            "example": {"email": "john.doc@gmail.com", "password": "Secret@123"}
         }
 
 
@@ -68,9 +67,10 @@ class SignupResponse(BaseModel):
                 "message": "User created successfully",
                 "user_id": "123e4567-e89b-12d3-a456-426614174000",
                 "email": "john.doc@example.com",
-                "username": "john_doe"
+                "username": "john_doe",
             }
         }
+
 
 class SignResponse(BaseModel):
     message: str
@@ -86,6 +86,6 @@ class SignResponse(BaseModel):
                 "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
                 "token_type": "bearer",
                 "user_id": "123e4567-e89b-12d3-a456-426614174000",
-                "email": "john.doc@example.com"
+                "email": "john.doc@example.com",
             }
         }

@@ -12,7 +12,9 @@ class _Env(StrEnum):
 
 
 class Settings(BaseSettings):
-    SECRET_KEY: str = Field(default="ea90084454f1f94244f779d605286ae482ffb1f33570dcd1f6a683e5c002b492")
+    SECRET_KEY: str = Field(
+        default="ea90084454f1f94244f779d605286ae482ffb1f33570dcd1f6a683e5c002b492"
+    )
     SECURITY_BCRYPT_ROUNDS: int = Field(default=4)
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=120)
     REFRESH_TOKEN_EXPIRE_MINUTES: int = Field(default=11520)

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from src.register.routers import router
 
 
@@ -20,4 +21,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-

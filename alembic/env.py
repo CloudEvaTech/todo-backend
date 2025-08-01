@@ -1,7 +1,8 @@
-from logging.config import fileConfig
 import asyncio
+from logging.config import fileConfig
 
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+
 from alembic import context
 
 # Alembic Config object
@@ -11,13 +12,14 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+from src.core.models.base import Base
 # Import your models and Base for autogenerate support
 from src.features.authentication.models import User
-from src.features.to_do.models import ToDoItem, Status
-from src.core.models.base import Base
+from src.features.to_do.models import Status, ToDoItem
 
 # Set target_metadata for autogenerate
 target_metadata = Base.metadata  # This should point to your SQLAlchemy Base metadata
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
@@ -33,9 +35,11 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+
 async def run_async_migrations(connectable: AsyncEngine):
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
+
 
 def do_run_migrations(connection):
     context.configure(
@@ -46,6 +50,7 @@ def do_run_migrations(connection):
     with context.begin_transaction():
         context.run_migrations()
 
+
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode using async engine."""
     # Get the URL from alembic.ini or override it here
@@ -54,6 +59,7 @@ def run_migrations_online() -> None:
 
     # Run the async migrations
     asyncio.run(run_async_migrations(connectable))
+
 
 if context.is_offline_mode():
     run_migrations_offline()
